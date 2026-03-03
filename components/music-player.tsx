@@ -13,6 +13,7 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
   const [currentTime, setCurrentTime] = useState(0)
   const [duration] = useState(180) // 3 minutes placeholder
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const stopInterval = useCallback(() => {
     if (intervalRef.current) {
@@ -118,5 +119,16 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
         </button>
       </div>
     </div>
+    <audio
+          ref={audioRef}
+          src="/06_Amr_Diab_Mosh_Gedid_مرو_دياب_مش_جديد.mp3"
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          onTimeUpdate={(e) => {
+            setCurrentTime(e.target.currentTime)
+            setDuration(e.target.duration || 180)
+          }}
+          style={{ display: 'none' }}
+        />
   )
 }
