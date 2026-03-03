@@ -119,6 +119,5 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
         </button>
       </div>
     </div>
-    </div> 
   )
 }
