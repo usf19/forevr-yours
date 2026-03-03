@@ -119,6 +119,21 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
         </button>
       </div>
     </div>
+    </div>
+      
+      <audio
+        ref={audioRef}
+        src="/06_Amr_Diab_Mosh_Gedid_مرو_دياب_مش_جديد.mp3"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onTimeUpdate={(e) => {
+          setCurrentTime(e.target.currentTime)
+          setDuration(e.target.duration || 180)
+        }}
+        hidden
+      />
+    )
+  }
         
   )
 }
