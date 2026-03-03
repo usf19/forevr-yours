@@ -23,16 +23,7 @@ export default function MemoriesPage() {
       router.push("/ending")
     }, 800)
   }
-  
-{/* Relationship Timer */}
-<div className="bg-purple-300 rounded-2xl p-6 text-center mb-6">
-  <p className="text-xl text-purple-900 mb-3">
-    We've been together for 💜
-  </p>
-  <p className="text-2xl font-semibold text-purple-900">
-    {timeTogether.days} days, {timeTogether.hours} hrs, {timeTogether.minutes} mins, {timeTogether.seconds} secs 💜
-  </p>
-</div>
+
   return (
     <main
       className={`relative min-h-screen flex flex-col items-center bg-background transition-opacity duration-700 ${
