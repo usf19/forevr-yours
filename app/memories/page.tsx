@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
 import { FallingHearts } from "@/components/falling-hearts"
 import { SparkleStars } from "@/components/sparkle-stars"
 import { MusicPlayer } from "@/components/music-player"
@@ -18,14 +17,49 @@ const photos = [
 export default function MemoriesPage() {
   const [leaving, setLeaving] = useState(false)
   const router = useRouter()
+const [timeTogether, setTimeTogether] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  })
 
+  useEffect(() => {
+    const startDate = new Date('2018-11-12T00:00:00') // غيّر التاريخ
+
+    const calculateTime = () => {
+      const now = new Date()
+      const difference = now.getTime() - startDate.getTime()
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+
+      setTimeTogether({ days, hours, minutes, seconds })
+    }
+
+    calculateTime()
+    const interval = setInterval(calculateTime, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
   const handleNext = () => {
     setLeaving(true)
     setTimeout(() => {
       router.push("/ending")
     }, 800)
   }
-
+  
+{/* Relationship Timer */}
+<div className="bg-purple-300 rounded-2xl p-6 text-center mb-6">
+  <p className="text-xl text-purple-900 mb-3">
+    We've been together for 💜
+  </p>
+  <p className="text-2xl font-semibold text-purple-900">
+    {timeTogether.days} days, {timeTogether.hours} hrs, {timeTogether.minutes} mins, {timeTogether.seconds} secs 💜
+  </p>
+</div>
   return (
     <main
       className={`relative min-h-screen flex flex-col items-center bg-background transition-opacity duration-700 ${
