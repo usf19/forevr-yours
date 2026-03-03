@@ -13,7 +13,7 @@ export default function PasswordPage() {
   const router = useRouter()
 
   const handleUnlock = () => {
-    if (password === "123") {
+    if (password === "2112006") {
       setUnlocking(true)
       setError(false)
       setTimeout(() => {
