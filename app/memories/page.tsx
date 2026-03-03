@@ -1,6 +1,5 @@
 "use client"
-
-import { useState, useEffect } from "react"
+import { useState } form "react"
 import { FallingHearts } from "@/components/falling-hearts"
 import { SparkleStars } from "@/components/sparkle-stars"
 import { MusicPlayer } from "@/components/music-player"
