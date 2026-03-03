@@ -102,7 +102,7 @@ export default function MemoriesPage() {
             <button
               key={index}
               onClick={() => setCurrentPhotoIndex(index)}
-              className={'w-3 h-3 rounded-full transition-all ${
+              className={`w-3 h-3 rounded-full transition-all ${
                 index === currentPhotoIndex ? 'bg-purple-600 w-8' : 'bg-purple-300'
               }}
             />
