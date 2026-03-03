@@ -123,7 +123,7 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
       
       <audio
         ref={audioRef}
-        src="/06_Amr_Diab_Mosh_Gedid_مرو_دياب_مش_جديد.mp3"
+  src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onTimeUpdate={(e) => {
