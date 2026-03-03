@@ -1,87 +1,149 @@
 "use client"
-import { useState } from "react"
+
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { Heart } from "lucide-react"
 import { FallingHearts } from "@/components/falling-hearts"
 import { SparkleStars } from "@/components/sparkle-stars"
-import { MusicPlayer } from "@/components/music-player"
 import { Navbar } from "@/components/navbar"
-import { ImageCarousel } from "@/components/image-carousel"
 
-const photos = [
-  { src: "/images/memory-1.jpg", alt: "Memory 1" },
-  { src: "/images/memory-2.jpg", alt: "Memory 2" },
-  { src: "/images/memory-3.jpg", alt: "Memory 3" },
-]
-
-
-export default function MemoriesPage() {
-  const [leaving, setLeaving] = useState(false)
+export default function EndingPage() {
+  const [showContent, setShowContent] = useState(false)
+  const [showMessage, setShowMessage] = useState(false)
+  const [showPoem, setShowPoem] = useState(false)
   const router = useRouter()
 
-  const handleNext = () => {
-    setLeaving(true)
-    setTimeout(() => {
-      router.push("/ending")
-    }, 800)
-  }
+  useEffect(() => {
+    const t1 = setTimeout(() => setShowContent(true), 500)
+    const t2 = setTimeout(() => setShowMessage(true), 1500)
+    const t3 = setTimeout(() => setShowPoem(true), 2500)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
+    }
+  }, [])
 
   return (
-    <main
-      className={`relative min-h-screen flex flex-col items-center bg-background transition-opacity duration-700 ${
-        leaving ? "opacity-0" : ""
-      }`}
-    >
+    <main className="relative min-h-screen flex flex-col items-center bg-background">
       <FallingHearts />
       <SparkleStars />
       <Navbar />
 
-      <div className="relative z-10 flex flex-col items-center gap-8 px-6 pt-20 pb-12 w-full max-w-md animate-fade-in-up">
-        <h1 className="text-3xl font-serif text-center text-foreground">
-          {"Our Memories"}
-        </h1>
+      <div className="relative z-10 flex flex-col items-center gap-8 px-6 pt-20 pb-12 w-full max-w-md">
+        {/* Big animated heart */}
+        <div
+          className={`transition-all duration-1000 ${
+            showContent
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          <div className="relative">
+            <Heart className="w-24 h-24 text-primary fill-primary animate-heartbeat" />
+            {/* Glow ring */}
+            <div className="absolute inset-0 w-24 h-24 rounded-full animate-pulse-glow" />
+          </div>
+        </div>
 
-        {/* Decorative hearts */}
-        <div className="flex items-center gap-3">
-          {[0, 1, 2].map((i) => (
+        {/* Title */}
+        <div
+          className={`transition-all duration-1000 delay-300 ${
+            showContent
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          <h1 className="text-4xl font-serif text-center text-foreground">
+            {"Forever Yours"}
+          </h1>
+        </div>
+
+        {/* Separator */}
+        <div
+          className={`flex items-center gap-3 transition-all duration-1000 ${
+            showContent
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          <div className="h-px w-12 bg-primary/40" />
+          <span className="text-primary text-sm">{"\u2726"}</span>
+          <div className="h-px w-12 bg-primary/40" />
+        </div>
+
+        {/* Main heading */}
+        <div
+          className={`transition-all duration-1000 ${
+            showMessage
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          <h2 className="text-2xl font-serif text-center text-foreground leading-relaxed">
+            {"Forever and Always"}
+          </h2>
+        </div>
+
+        {/* Message card */}
+        <div
+          className={`w-full p-8 rounded-2xl border border-border bg-card backdrop-blur-xl transition-all duration-1000 ${
+            showPoem
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          <p className="text-foreground/90 leading-loose text-center font-light">
+            {"No matter where life takes us..."}
+          </p>
+          <p className="text-foreground/90 leading-loose text-center font-light mt-2">
+            {"You'll always be my favorite person,"}
+          </p>
+          <p className="text-foreground/90 leading-loose text-center font-light mt-2">
+            {"My safe place, my home."}
+          </p>
+        </div>
+
+        {/* Decorative hearts row */}
+        <div
+          className={`flex items-center gap-4 transition-all duration-1000 delay-500 ${
+            showPoem
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
+        >
+          {[
+            { color: "#7c3aed", size: "text-sm" },
+            { color: "#a855f7", size: "text-lg" },
+            { color: "#c084fc", size: "text-2xl" },
+            { color: "#a855f7", size: "text-lg" },
+            { color: "#7c3aed", size: "text-sm" },
+          ].map((h, i) => (
             <span
               key={i}
-              className="text-primary animate-heartbeat text-lg"
-              style={{ animationDelay: `${i * 0.3}s` }}
+              className={`${h.size} animate-heartbeat`}
+              style={{ color: h.color, animationDelay: `${i * 0.2}s` }}
             >
               {"\u2665"}
             </span>
           ))}
         </div>
 
-        {/* Music Player */}
-        <MusicPlayer title="MOSH GEDE" artist="Amr Diab" />
-
-        {/* Swipeable Photo Carousel */}
-        <ImageCarousel images={photos} />
-
-        {/* Memory cards */}
-        <div className="w-full flex flex-col gap-4">
-          {[
-            { text: "Our first conversation", delay: "0s" },
-            { text: "The day everything changed", delay: "0.2s" },
-            { text: "Every moment with you", delay: "0.4s" },
-          ].map((memory, i) => (
-            <div
-              key={i}
-              className="p-4 rounded-xl border border-border bg-card backdrop-blur-xl text-center text-foreground/80 text-sm animate-fade-in-up"
-              style={{ animationDelay: memory.delay }}
-            >
-              {memory.text}
-            </div>
-          ))}
-        </div>
-
-        {/* Next button */}
-        <button
-          onClick={handleNext}
-          className="px-10 py-3.5 rounded-xl bg-primary text-primary-foreground font-medium text-base transition-all duration-300 hover:brightness-110 animate-pulse-glow cursor-pointer"
+        {/* Replay button */}
+        <div
+          className={`transition-all duration-1000 delay-700 ${
+            showPoem
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+          }`}
         >
-          {"Next"}
-        </button>
+          <button
+            onClick={() => router.push("/")}
+            className="px-10 py-3.5 rounded-xl bg-primary text-primary-foreground font-medium text-base transition-all duration-300 hover:brightness-110 animate-pulse-glow cursor-pointer"
+          >
+            {"Replay"}
+          </button>
+        </div>
       </div>
     </main>
   )
