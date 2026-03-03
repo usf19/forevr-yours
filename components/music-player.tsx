@@ -121,19 +121,6 @@ export function MusicPlayer({ title, artist }: MusicPlayerProps) {
     </div>
     </div>
       
-      <audio
-        ref={audioRef}
-  src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onTimeUpdate={(e) => {
-          setCurrentTime(e.target.currentTime)
-          setDuration(e.target.duration || 180)
-        }}
-        hidden
-      />
-    )
-  }
-        
+    
   )
 }
